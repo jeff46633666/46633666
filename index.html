@@ -5,67 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>內容驗證系統</title>
     <style>
-        /* 頁面美化樣式 */
-        body { 
-            font-family: -apple-system, sans-serif; 
-            text-align: center; 
-            background-color: #f7f7f7; 
-            margin: 0; 
-            padding: 20px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            min-height: 100vh;
-        }
-        .card { 
-            background: white; 
-            padding: 30px; 
-            border-radius: 15px; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
-            max-width: 400px; 
-            width: 90%;
-        }
-        h2 { color: #333; margin-bottom: 10px; }
-        p { color: #666; line-height: 1.6; }
-        .btn { 
-            background: #ff4500; 
-            color: white; 
-            border: none; 
-            padding: 15px 30px; 
-            border-radius: 8px; 
-            font-size: 18px; 
-            font-weight: bold;
-            cursor: pointer; 
-            width: 100%;
-            margin-top: 10px;
-            transition: background 0.3s;
-        }
-        .btn:hover { background: #e63e00; }
-        #pic-area { 
-            display: none; 
-            margin-top: 30px; 
-            padding-top: 20px; 
-            border-top: 2px dashed #eee; 
-        }
-        img { 
-            max-width: 100%; 
-            border-radius: 10px; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+        body { font-family: -apple-system, sans-serif; text-align: center; background-color: #f7f7f7; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 400px; width: 90%; }
+        .btn { background: #ff4500; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px; }
+        #pic-area { display: none; margin-top: 30px; padding-top: 20px; border-top: 2px dashed #eee; }
+        img { max-width: 100%; border-radius: 10px; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>正在驗證權限...</h2>
-        <p>點擊下方按鈕即可解鎖圖片內容<br><small></small></p>
+        <h2>驗證權限中...</h2>
+        <p>點擊按鈕解鎖內容</p>
         
         <button class="btn" onclick="unlockContent()">點此解鎖並查看圖片</button>
 
         <div id="pic-area">
             <h3 style="color: #2ecc71;">✅ 驗證成功！</h3>
-            <p>圖片已在下方顯示：</p>
             <img src="" id="secret-img" alt="Secret Content">
         </div>
     </div>
@@ -73,29 +29,38 @@
     <script>
         function unlockContent() {
             // ==========================================
-            // 【 1. 請在下面雙引號內填入你的廣告連結 】
+            // 【 1. 廣告連結清單 】
+            // 你可以在括號內增加更多網址，記得用逗號分開，並都要加雙引號
             // ==========================================
-            var adUrl = "https://s.shopee.tw/7KsrUcsm0H"; 
+            var adLinks = [
+                "https://s.shopee.tw/5AoOPBftOI",
+                "https://s.shopee.tw/20rMdOMkqY",
+                "https://s.shopee.tw/8fOGZgrDHM",
+                "https://s.shopee.tw/7fVjNsLZ3h",
+                "https://s.shopee.tw/1gEWErqaym",
+                "https://s.shopee.tw/8ARzyparfc",
+                "https://s.shopee.tw/BPiS2Kjid"
+            ];
 
             // ==========================================
-            // 【 2. 請在下面雙引號內填入你的圖片網址 】
+            // 【 2. 圖片網址 】
             // ==========================================
             var imgUrl = "https://i.postimg.cc/Zn0gBscS/IMG-20260408-031540.jpg";
 
-            // --- 執行邏輯 ---
+            // --- 隨機挑選邏輯 ---
+            // 從清單中隨機選一個索引
+            var randomIndex = Math.floor(Math.random() * adLinks.length);
+            var selectedAd = adLinks[randomIndex];
+
+            // 執行：開啟隨機選中的廣告
+            window.open(selectedAd, "_blank");
             
-            // 在新分頁開啟廣告 (避免覆蓋掉原本的網頁)
-            window.open(adUrl, "_blank");
-            
-            // 把圖片網址塞進標籤
+            // 執行：顯示圖片
             var imgTag = document.getElementById('secret-img');
             imgTag.src = imgUrl;
-            
-            // 顯示圖片區塊
             document.getElementById('pic-area').style.display = 'block';
 
-            // 提醒使用者
-            alert("廣告已在新分頁開啟！請回到原網頁查看已解鎖的圖片。");
+            alert("已為您分配廣告分流，請回到原頁面查看圖片。");
         }
     </script>
 
